@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Musicify X | Music Beyond Reality</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Space+Grotesk:wght@500;600;700&display=swap');
+        
+        :root {
+            --purple: #C026D3;
+            --pink: #EC4899;
+            --cyan: #22D3EE;
+        }
+        
+        body {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        
+        .logo-font {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .glass {
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .neon-text {
+            text-shadow: 
+                0 0 10px #C026D3,
+                0 0 20px #C026D3,
+                0 0 40px #EC4899;
+        }
+
+        .hero-bg {
+            background: radial-gradient(at center bottom, #4C1D95 0%, #0F172A 70%);
+        }
+
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-30px); }
+        }
+
+        .neon-glow {
+            box-shadow: 
+                0 0 15px #C026D3,
+                0 0 30px #EC4899,
+                0 0 50px rgba(34, 211, 238, 0.3);
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: #22D3EE;
+            box-shadow: 0 0 12px #22D3EE;
+            animation: particleFloat linear infinite;
+        }
+
+        @keyframes particleFloat {
+            0% { transform: translateY(100vh) scale(1); opacity: 0.8; }
+            100% { transform: translateY(-100vh) scale(0.5); opacity: 0; }
+        }
+
+        .scanline {
+            position: relative;
+        }
+        
+        .scanline::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                transparent 50%,
+                rgba(236, 72, 153, 0.08) 50%
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+            animation: scan 8s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 400px; }
+        }
+    </style>
+</head>
+<body class="bg-[#0A0A0F] text-white overflow-x-hidden">
+    <!-- NAVBAR -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 glass border-b border-white/10 transition-all duration-300">
+        <div class="max-w-screen-2xl mx-auto px-8 py-5 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-2xl bg-gradient-to-br from-purple-500 via-pink-500 to-cyan-400 flex items-center justify-center">
+                    <span class="text-white text-2xl font-bold logo-font tracking-tighter">X</span>
+                </div>
+                <div>
+                    <span class="logo-font text-3xl font-bold tracking-tighter neon-text">MUSICIFY</span>
+                </div>
+            </div>
+            
+            <div class="hidden md:flex items-center gap-10 text-sm font-medium">
+                <a href="#" onclick="navigateToSection('home')" class="hover:text-cyan-400 transition-colors">Home</a>
+                <a href="#" onclick="navigateToSection('about-creator')" class="hover:text-cyan-400 transition-colors">About</a>
+                <a href="#" onclick="navigateToSection('features')" class="hover:text-cyan-400 transition-colors">Features</a>
+                <a href="#" onclick="navigateToSection('vision')" class="hover:text-cyan-400 transition-colors">Vision</a>
+                <a href="#" onclick="navigateToSection('contact')" class="hover:text-cyan-400 transition-colors">Contact</a>
+            </div>
+            
+            <button class="px-8 py-3.5 bg-white text-black rounded-3xl font-semibold text-sm hover:scale-105 active:scale-95 transition-all duration-200 flex items-center gap-2 shadow-lg shadow-pink-500/30">
+                <a href="home.html"><i class="fa-solid fa-play"></i>
+                LAUNCH MUSICIFY X </a>
+            </button>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section id="home" class="hero-bg min-h-screen flex items-center relative overflow-hidden">
+        <!-- Background Particles -->
+        <div id="particles" class="absolute inset-0 z-0"></div>
+        
+        <!-- Music Visualizer -->
+        <div class="absolute bottom-20 left-1/2 transform -translate-x-1/2 flex gap-1 z-10 opacity-30">
+            <div class="w-1 bg-gradient-to-t from-cyan-400 to-pink-500 h-8 animate-pulse"></div>
+            <div class="w-1 bg-gradient-to-t from-purple-500 to-cyan-400 h-12 animate-pulse delay-150"></div>
+            <div class="w-1 bg-gradient-to-t from-pink-500 to-purple-500 h-6 animate-pulse delay-300"></div>
+            <div class="w-1 bg-gradient-to-t from-cyan-400 to-pink-500 h-16 animate-pulse delay-500"></div>
+            <div class="w-1 bg-gradient-to-t from-purple-500 to-cyan-400 h-10 animate-pulse delay-700"></div>
+        </div>
+
+        <div class="max-w-screen-2xl mx-auto px-8 pt-24 relative z-20">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="space-y-8">
+                    <div class="inline-flex items-center gap-3 px-6 py-2.5 rounded-3xl border border-white/10 bg-white/5 text-sm">
+                        <div class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></div>
+                        NOW IN BETA
+                    </div>
+                    
+                    <h1 class="text-7xl md:text-8xl font-bold leading-none logo-font tracking-tighter neon-text">
+                        MUSIC<br>BEYOND<br>REALITY
+                    </h1>
+                    
+                    <p class="text-2xl text-gray-300 max-w-lg">
+                        Experience the future of music through immersive design, futuristic technology, and next-generation listening experiences.
+                    </p>
+                    
+                    <div class="flex items-center gap-5">
+                        <button class="px-10 py-6 bg-gradient-to-r from-purple-600 to-pink-600 rounded-3xl text-xl font-semibold flex items-center gap-3 hover:scale-105 transition-all duration-300 group">
+                            <a href="home.html"><span>LAUNCH MUSICIFY X</span>
+                            <i class="fa-solid fa-arrow-right group-active:rotate-45 transition-transform"></i></a>
+                        </button>
+                        
+                        <button onclick="navigateToSection('vision')" 
+                                class="px-8 py-6 border border-white/30 hover:border-white/70 rounded-3xl text-xl font-medium transition-all">
+                            EXPLORE VISION
+                        </button>
+                    </div>
+                    
+                    <div class="flex items-center gap-8 text-sm pt-8">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-headphones text-cyan-400"></i>
+                            <span>10+ tracks</span>
+                        </div>
+                        <div class="h-4 w-px bg-white/20"></div>
+                        <div>Immersive Free Audio Dawnload</div>
+                    </div>
+                </div>
+                
+                <!-- Floating Album Art -->
+                <div class="relative hidden md:block">
+                    <div class="absolute -left-10 top-20 w-64 h-64 rounded-3xl overflow-hidden border-2 border-white/20 shadow-2xl floating" style="animation-delay: 0s; transform: rotate(-12deg);">
+                        <img src="images/hero3.webp" alt="Album" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                    </div>
+                    
+                    <div class="absolute right-10 bottom-32 w-72 h-72 rounded-3xl overflow-hidden border-2 border-white/20 shadow-2xl floating" style="animation-delay: 2s; transform: rotate(8deg);">
+                        <img src="images/hero4.webp" alt="Album" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                    </div>
+                    
+                    <div class="w-80 h-80 mx-auto rounded-[4rem] border-8 border-white/10 overflow-hidden neon-glow relative">
+                        <img src="images/OIP.webp" alt="Main Album" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-br from-purple-500/30 via-transparent to-cyan-500/30"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 flex flex-col items-center gap-2 text-xs tracking-widest">
+            <div class="w-px h-12 bg-gradient-to-b from-transparent via-white/40 to-transparent"></div>
+            SCROLL TO EXPLORE
+        </div>
+
+        <div class="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent"></div>
+    </section>
+
+    <!-- ABOUT CREATOR -->
+    <section id="about-creator" class="py-32 relative">
+        <div class="max-w-screen-2xl mx-auto px-8">
+            <div class="grid md:grid-cols-12 gap-16 items-center">
+                <div class="md:col-span-5">
+                    <div class="glass rounded-3xl p-2 neon-glow">
+                        <div class="rounded-3xl overflow-hidden border border-white/10">
+                            <img src="images/hero1.avif" alt="Abhi" class="w-full aspect-square object-cover">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="md:col-span-7">
+                    <div class="max-w-lg">
+                        <div class="uppercase tracking-[4px] text-pink-400 text-sm font-medium mb-4">THE CREATOR</div>
+                        <h2 class="text-6xl font-bold logo-font leading-none mb-8">Hi, I'm Abhinav</h2>
+                        
+                        <div class="space-y-6 text-lg text-gray-300">
+                            <p class="text-2xl">Electronics &amp; Communication Engineer</p>
+                            <p class="text-2xl">Web Developer &amp; Tech Innovator</p>
+                            
+                            <p class="leading-relaxed">
+                                "I am passionate about technology, web development, innovation, and building futuristic digital experiences that combine creativity and engineering."
+                            </p>
+                        </div>
+                        
+                        <div class="mt-12 flex gap-4">
+                            <div class="px-6 py-3 border border-white/20 rounded-2xl text-sm">Robotics Enthusiast</div>
+                            <div class="px-6 py-3 border border-white/20 rounded-2xl text-sm">Web developer</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT MUSICIFY X -->
+    <section class="py-32 bg-black/40">
+        <div class="max-w-screen-2xl mx-auto px-8">
+            <div class="grid md:grid-cols-2 gap-20 items-center">
+                <div>
+                    <div class="uppercase text-cyan-400 text-sm tracking-widest mb-6">THE PLATFORM</div>
+                    <h2 class="text-6xl font-bold logo-font leading-none mb-8">Musicify X is redefining how we used to listen music.</h2>
+                    <p class="text-2xl text-gray-400 leading-relaxed">
+                        A completlyfree music ecosystem designed to deliver immersive listening experiences through stunning design, powerful technology, and seamless interaction where every one can upload and download music for free.
+                    </p>
+                    
+                    <div class="mt-12 grid grid-cols-3 gap-6">
+                        <div class="text-center">
+                            <div class="text-5xl font-bold text-purple-400">∞</div>
+                            <div class="text-sm mt-2">Unlimited Free Downloads</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-5xl font-bold text-pink-400">8K</div>
+                            <div class="text-sm mt-2">Audio Quality</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-5xl font-bold text-cyan-400">AI</div>
+                            <div class="text-sm mt-2">Curated Vibes</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="relative">
+                    <div class="aspect-video bg-gradient-to-br from-purple-900/50 to-pink-900/50 rounded-3xl overflow-hidden border border-white/10 flex items-center justify-center">
+                        <div class="text-center">
+                            <i class="fa-solid fa-waveform text-8xl text-white/30"></i>
+                            <div class="mt-8 text-3xl font-medium tracking-widest">Upload And Download Music For Free</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATISTICS -->
+    <section class="py-24 bg-gradient-to-b from-transparent via-purple-950/30 to-transparent">
+        <div class="max-w-screen-2xl mx-auto px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
+                <div>
+                    <div id="stat-songs" class="text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-br from-purple-400 to-pink-400">18</div>
+                    <div class="text-xl mt-3">Songs Available</div>
+                </div>
+                <div>
+                    <div id="stat-categories" class="text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-br from-pink-400 to-cyan-400">5</div>
+                    <div class="text-xl mt-3">Music Categories</div>
+                </div>
+                <div>
+                    <div id="stat-responsive" class="text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-br from-cyan-400 to-purple-400">100</div>
+                    <div class="text-xl mt-3">% Responsive</div>
+                </div>
+                <div>
+                    <div id="stat-future" class="text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-br from-purple-400 to-cyan-400">∞</div>
+                    <div class="text-xl mt-3">Future Possibilities</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VISION -->
+    <section id="vision" class="py-32 scanline">
+        <div class="max-w-screen-2xl mx-auto px-8">
+            <div class="max-w-4xl mx-auto text-center">
+                <div class="uppercase text-pink-400 mb-6 tracking-widest">OUR NORTH STAR</div>
+                <h2 class="text-7xl md:text-8xl font-bold logo-font leading-none mb-12">The Future of Music</h2>
+                <p class="text-3xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
+                    My vision is to build a next-generation music platform where technology, creativity, and user experience merge into one seamless ecosystem for completly free.
+                </p>
+                
+                <div class="mt-20 inline-flex items-center gap-8 text-sm">
+                    <div class="flex items-center gap-3">
+                        <span class="block w-3 h-px bg-gradient-to-r from-transparent to-white"></span>
+                        IMMERSIVE
+                        <span class="block w-3 h-px bg-gradient-to-l from-transparent to-white"></span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="block w-3 h-px bg-gradient-to-r from-transparent to-white"></span>
+                        INTUITIVE
+                        <span class="block w-3 h-px bg-gradient-to-l from-transparent to-white"></span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="block w-3 h-px bg-gradient-to-r from-transparent to-white"></span>
+                        INFINITE
+                        <span class="block w-3 h-px bg-gradient-to-l from-transparent to-white"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TIMELINE -->
+    <section class="py-32 bg-black/60">
+        <div class="max-w-screen-2xl mx-auto px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-5xl font-bold logo-font">Roadmap</h2>
+            </div>
+            
+            <div class="max-w-4xl mx-auto space-y-16">
+                <div class="flex gap-8">
+                    <div class="w-28 text-right shrink-0">
+                        <div class="text-cyan-400 font-medium">PHASE 01</div>
+                    </div>
+                    <div class="glass p-8 rounded-3xl flex-1">
+                        <h4 class="text-2xl font-semibold">Musicify X Launch</h4>
+                        <p class="text-gray-400 mt-3">Official public beta release with core player and modern interface.</p>
+                    </div>
+                </div>
+                
+                <div class="flex gap-8">
+                    <div class="w-28 text-right shrink-0">
+                        <div class="text-pink-400 font-medium">PHASE 02</div>
+                    </div>
+                    <div class="glass p-8 rounded-3xl flex-1">
+                        <h4 class="text-2xl font-semibold">More Songs &amp; Artists</h4>
+                        <p class="text-gray-400 mt-3">Expand the catalog with independent artists from around the world.</p>
+                    </div>
+                </div>
+                
+                <div class="flex gap-8">
+                    <div class="w-28 text-right shrink-0">
+                        <div class="text-purple-400 font-medium">PHASE 03</div>
+                    </div>
+                    <div class="glass p-8 rounded-3xl flex-1">
+                        <h4 class="text-2xl font-semibold">User Accounts</h4>
+                        <p class="text-gray-400 mt-3">Personal profiles, listening history, and social sharing.</p>
+                    </div>
+                </div>
+                
+                <div class="flex gap-8">
+                    <div class="w-28 text-right shrink-0">
+                        <div class="text-cyan-400 font-medium">PHASE 04</div>
+                    </div>
+                    <div class="glass p-8 rounded-3xl flex-1">
+                        <h4 class="text-2xl font-semibold">Playlists &amp; Favorites</h4>
+                        <p class="text-gray-400 mt-3">Advanced curation tools and collaborative playlists.</p>
+                    </div>
+                </div>
+                
+                <div class="flex gap-8">
+                    <div class="w-28 text-right shrink-0">
+                        <div class="text-pink-400 font-medium">PHASE 05</div>
+                    </div>
+                    <div class="glass p-8 rounded-3xl flex-1">
+                        <h4 class="text-2xl font-semibold">Mobile Application</h4>
+                        <p class="text-gray-400 mt-3">Native iOS and Android apps with offline capabilities.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="py-32 bg-gradient-to-br from-purple-950 via-black to-pink-950 relative overflow-hidden">
+        <div class="max-w-screen-2xl mx-auto px-8 text-center relative z-10">
+            <h2 class="text-6xl md:text-7xl font-bold logo-font leading-none mb-10">Ready To Enter<br>The Future Of Music?</h2>
+            <button class="px-16 py-8 text-2xl font-bold rounded-3xl bg-white text-black hover:scale-110 transition-all duration-300 shadow-2xl shadow-purple-500/50 flex items-center gap-4 mx-auto">
+                <a href="home.html">MUSICIFY X</a> 
+                <span class="text-4xl">→</span>
+            </button>
+        </div>
+        
+        <!-- Background accent -->
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,#C026D320_0%,transparent_70%)]"></div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-black py-16 border-t border-white/10">
+        <div class="max-w-screen-2xl mx-auto px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-2xl bg-gradient-to-br from-purple-500 via-pink-500 to-cyan-400 flex items-center justify-center">
+                        <span class="text-xl font-bold logo-font">X</span>
+                    </div>
+                    <span class="logo-font text-3xl font-bold tracking-tighter">MUSICIFY</span>
+                </div>
+                
+                <div class="text-gray-500 text-sm">
+                    Built with passion, creativity, and innovation.
+                </div>
+                
+                <div class="flex gap-8 text-2xl">
+                    <a href="#" class="hover:text-pink-400 transition-colors"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="#" class="hover:text-pink-400 transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="hover:text-pink-400 transition-colors"><i class="fa-brands fa-github"></i></a>
+                </div>
+            </div>
+            
+        </div>
+    </footer>
+
+    <script>
+        // Tailwind script already loaded via CDN
+        
+        function initializeTailwind() {
+            // Already configured via CDN
+        }
+        
+        // Navbar scroll effect
+        function handleNavbar() {
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('py-3', 'bg-slate-950/90');
+                } else {
+                    navbar.classList.remove('py-3', 'bg-slate-950/90');
+                }
+            });
+        }
+        
+        // Particle system
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 80; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                const size = Math.random() * 5 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                particle.style.left = `${Math.random() * 100}vw`;
+                particle.style.animationDuration = `${Math.random() * 25 + 15}s`;
+                particle.style.animationDelay = `-${Math.random() * 30}s`;
+                particle.style.opacity = Math.random() * 0.6 + 0.2;
+                
+                container.appendChild(particle);
+            }
+        }
+        
+        // Counter animation
+        function animateCounters() {
+            const counters = [
+                { id: 'stat-songs', target: 18400, suffix: '+' },
+                { id: 'stat-categories', target: 12, suffix: '+' },
+                { id: 'stat-responsive', target: 100, suffix: '%' }
+            ];
+            
+            counters.forEach(counter => {
+                const el = document.getElementById(counter.id);
+                if (!el) return;
+                
+                let count = 0;
+                const increment = Math.ceil(counter.target / 60);
+                
+                const timer = setInterval(() => {
+                    count += increment;
+                    if (count >= counter.target) {
+                        count = counter.target;
+                        clearInterval(timer);
+                    }
+                    el.textContent = count + counter.suffix;
+                }, 40);
+            });
+        }
+        
+        
+        // Smooth navigation
+        function navigateToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+        
+        // Keyboard shortcuts
+        function handleKeys(e) {
+            if (e.metaKey && e.key === "k") {
+                e.preventDefault();
+                alert("Command palette would open here in full product ✨");
+            }
+        }
+        
+        // Initialize everything
+        window.onload = function() {
+            handleNavbar();
+            createParticles();
+            
+            // Trigger counters when scrolled into view
+            const statsSection = document.querySelector('.bg-gradient-to-b');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateCounters();
+                        observer.disconnect();
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            if (statsSection) observer.observe(statsSection);
+            
+            // Mouse parallax on hero (subtle)
+            document.addEventListener('mousemove', (e) => {
+                const albums = document.querySelectorAll('.floating');
+                albums.forEach((album, index) => {
+                    const speed = (index + 1) * 15;
+                    const x = (window.innerWidth - e.pageX * speed) / 100;
+                    const y = (window.innerHeight - e.pageY * speed) / 100;
+                    album.style.transform = `translate(${x}px, ${y}px)`;
+                });
+            });
+            
+            document.addEventListener('keydown', handleKeys);
+            
+            // Make it feel premium
+            console.log('%cMusicify X - Premium Music Listining Experience Loaded ✨', 'color: #C026D3; font-size: 14px; font-family: monospace');
+        };
+    </script>
+</body>
+</html>
